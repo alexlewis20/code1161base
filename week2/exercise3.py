@@ -42,7 +42,12 @@ def loops_1a():
     return a list of 10 items, each one a string with exacly one star in it.
     E.g.: ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
     """
-    pass
+
+    stars = []
+    for items in range(10):
+        stars.append("*")
+
+    return stars
 
 
 def star_map():
@@ -53,7 +58,18 @@ def star_map():
     if it's even. Reuse the is odd function that you've already written.
     E.g.: ["!", "*", "!", "*", "!", "*", "!", "*", "!", "*"]
     """
-    pass
+    star_list = []
+
+    def star_bang(item):
+        if is_odd(item):
+            star_list.append("*")
+        else:
+            star_list.append("!")
+    map(star_bang, range(10))
+    return star_list
+
+
+symbol_list = []
 
 
 def loops_1c(number_of_items=5, symbol="#"):
@@ -64,8 +80,10 @@ def loops_1c(number_of_items=5, symbol="#"):
     a string with exacly one symbol in it.
     E.g.: ['#', '#', '#', '#', '#']
     """
-    pass
 
+    for items in range(number_of_items):
+        symbol_list.append(str(symbol))
+    return symbol_list
 
 def loops_2():
     """Make a big square starfield.
@@ -238,6 +256,7 @@ if __name__ == "__main__":
     lp(loops_1a(), "loops_1a")
     lp(star_map(), "star_map")
     lp(loops_1c(4, "×°×"), "loops_1c")
+    lp(loops_1c(5, "#"), "loops_1c")
     lp(loops_2(), "loops_2")
     lp(loops_3(), "loops_3")
     lp(loops_4(), "loops_4")

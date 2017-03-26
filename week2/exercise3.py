@@ -103,7 +103,11 @@ def loops_2():
             ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
           ]
     """
-    pass
+    stars_row = loops_1a()
+    stars_square = []
+    for item in range(10):
+        stars_square.append(stars_row)
+    return stars_square
 
 
 def loops_3():

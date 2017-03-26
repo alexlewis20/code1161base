@@ -250,7 +250,21 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
-    pass
+    pyramid = []
+    star_count = 1
+    space_count = 4
+    for numbers in range(5):
+        pyramid_row = []
+        for items in range(space_count):
+            pyramid_row.append(" ")
+        for items in range(star_count):
+            pyramid_row.append("*")
+        for items in range(space_count):
+            pyramid_row.append(" ")
+        star_count += 2
+        space_count -= 1
+        pyramid.append(pyramid_row)
+    return pyramid
 
 
 def lp(some_kind_of_list, exercise_name):

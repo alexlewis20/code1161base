@@ -155,7 +155,13 @@ def loops_4():
       ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     ]
     """
-    pass
+    rising_number_square = []
+    for items in range(10):
+        rising_number_row = []
+        for number in range(10):
+            rising_number_row.append(str(number))
+        rising_number_square.append(rising_number_row)
+    return rising_number_square
 
 
 def loops_5():

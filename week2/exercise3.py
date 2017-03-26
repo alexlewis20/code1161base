@@ -85,6 +85,7 @@ def loops_1c(number_of_items=5, symbol="#"):
         symbol_list.append(str(symbol))
     return symbol_list
 
+
 def loops_2():
     """Make a big square starfield.
 
@@ -186,7 +187,15 @@ def loops_5():
         "There are {} green bottles".format(8)
     you'll come to see the pros and cons of each over time.
     """
-    pass
+    coordinate_square = []
+    for numbers in range(10):
+        coordinate_row = []
+        for items in range(5):
+            coordinate_row.append(
+                "(i" + str(numbers) + ", j" + str(items) + ")"
+                )
+        coordinate_square.append(coordinate_row)
+    return coordinate_square
 
 
 def loops_6():

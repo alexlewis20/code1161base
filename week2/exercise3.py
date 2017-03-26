@@ -218,7 +218,15 @@ def loops_6():
     You can use a variable.
     TIP: look out for the starting condition.
     """
-    pass
+    wedge = []
+    count = 1
+    for numbers in range(10):
+        wedge_row = []
+        for items in range(count):
+            wedge_row.append(str(items))
+        count = count + 1
+        wedge.append(wedge_row)
+    return wedge
 
 
 def loops_7():

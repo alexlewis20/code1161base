@@ -131,7 +131,13 @@ def loops_3():
     TIP: notice that this needs to to return strings of numbers,
          so call str(number) to cast.
     """
-    pass
+    number_square = []
+    for items in range(10):
+        number_row = []
+        for number in range(10):
+            number_row.append(str(items))
+        number_square.append(number_row)
+    return number_square
 
 
 def loops_4():

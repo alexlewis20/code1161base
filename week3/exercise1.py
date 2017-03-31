@@ -95,7 +95,6 @@ def super_asker(low, high):
         try:
             super_number = int(super_number)
             if low <= super_number >= high:
-                print("Nailed it you winner!")
                 return super_number
             else:
                 print("So you got a number but it\'s not in the range")

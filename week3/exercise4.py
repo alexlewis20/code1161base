@@ -29,21 +29,19 @@ def binary_search(low, high, actual_number):
     """
     upper_bound = high
     lower_bound = low
-    tries = 1
+    tries = 0
 
     while True:
         guess = int((upper_bound + lower_bound) / 2)
-        print(guess)
+        print(
+            "L: {} -- G: {} -- H: {}".format(lower_bound, guess, upper_bound))
         if guess == actual_number:
             return {"guess": guess, "tries": tries}
-        # elif tries == 7:  # STOP clause
-        #    print("Tries reached 7: STOP")
-        #    return {"guess": guess, "tries": tries}
         elif guess > actual_number:
-            upper_bound = guess
+            upper_bound = guess - 1
             tries += 1
         else:
-            lower_bound = guess
+            lower_bound = guess + 1
             tries += 1
 
 

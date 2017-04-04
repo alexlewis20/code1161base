@@ -97,7 +97,7 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
-    base_url = 'http://www.setgetgo.com/randomword/get.php?len='
+    """base_url = 'http://www.setgetgo.com/randomword/get.php?len='
     wordy_pyramid = []
     for word_length in range(3, 20, 2):
         word = requests.get(base_url + str(word_length))
@@ -108,7 +108,7 @@ def wordy_pyramid():
         word_length -= 2
 
     [print(w) for w in wordy_pyramid]
-    return wordy_pyramid
+    return wordy_pyramid"""
 
 
 def wunderground():
@@ -123,7 +123,7 @@ def wunderground():
          variable and then future access will be easier.
     """
     base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    api_key = "bb256cba2f9a1be7"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -131,11 +131,13 @@ def wunderground():
     r = requests.get(url)
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
-
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    print(url)
+    results = {"state":           obs['display_location']['state'],
+               "latitude":        obs['observation_location']['latitude'],
+               "longitude":       obs['observation_location']['longitude'],
+               "local_tz_offset": obs['local_tz_offset']}
+    print(results)
+    return results
 
 
 def diarist():

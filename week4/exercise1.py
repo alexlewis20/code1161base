@@ -97,7 +97,7 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
-    """base_url = 'http://www.setgetgo.com/randomword/get.php?len='
+    base_url = 'http://www.setgetgo.com/randomword/get.php?len='
     wordy_pyramid = []
     for word_length in range(3, 20, 2):
         word = requests.get(base_url + str(word_length))
@@ -108,7 +108,7 @@ def wordy_pyramid():
         word_length -= 2
 
     [print(w) for w in wordy_pyramid]
-    return wordy_pyramid"""
+    return wordy_pyramid
 
 
 def wunderground():
@@ -153,7 +153,13 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    laser_gcode = open('week4/Trispokedovetiles(laser).gcode', 'r').read()
+    print (laser_gcode)
+    count = laser_gcode.count('M10 P1')
+    print(count)
+    lasers_pew = open('week4/lasers.pew', 'w')
+    lasers_pew.write(str(count))
+    lasers_pew.close()
 
 
 if __name__ == "__main__":

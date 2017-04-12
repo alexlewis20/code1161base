@@ -33,6 +33,7 @@ import math
 # much better job of what it's trying to do. Once you've has a little look,
 # move on, and eventually delete this function. (And this comment!)
 def do_bunch_of_bad_things():
+    """Do a bunch of bad things."""
     print("Getting ready to start in 9")
     print("Getting ready to start in 8")
     print("Getting ready to start in 7")
@@ -99,7 +100,7 @@ def calculate_perimeter(base, height):
 
 
 def calculate_aspect(base, height):
-    """Determine if the triangle is tall, short or equal."""
+    """Determine if the triangle is tall, wide or equal."""
     if height > base:
         return "tall"
     elif base > height:
@@ -107,16 +108,18 @@ def calculate_aspect(base, height):
     else:
         return "equal"
 
+
 # Make sure you reuse the functions you've already got
 # Don't reinvent the wheel
 def get_triangle_facts(base, height, units="mm"):
-    return {"area": None,
-            "perimeter": None,
-            "height": None,
-            "base": None,
-            "hypotenuse": None,
-            "aspect": None,
-            "units": None}
+    """Determine all the facts about the triangle."""
+    return {"area": calculate_area(base, height),
+            "perimeter": calculate_perimeter(base, height),
+            "height": height,
+            "base": base,
+            "hypotenuse": calculate_hypotenuse(base, height),
+            "aspect": calculate_aspect(base, height),
+            "units": units}
 
 
 # this should return a multi line string that looks a bit like this:
@@ -135,7 +138,8 @@ def get_triangle_facts(base, height, units="mm"):
 #
 # but with the values and shape that relate to the specific
 # triangle we care about.
-def tell_me_about_this_right_triangle(facts_dictionary):
+def create_triangle_diagram(facts_dictionary):
+    """Draw the diagram for the given triangle dictionary."""
     tall = """
             {height}
             |
@@ -160,28 +164,51 @@ def tell_me_about_this_right_triangle(facts_dictionary):
                   |____⋱
                   {base}"""
 
-    pattern = ("This triangle is {area}{units}²\n"
+    aspect = facts_dictionary["aspect"]
+    if aspect == "tall":
+        return tall.format(**facts_dictionary)
+    elif aspect == "wide":
+        return wide.format(**facts_dictionary)
+    else:
+        return equal.format(**facts_dictionary)
+
+
+def create_triangle_statement(facts_dictionary):
+    """Create the statement about the given triangle dictionary."""
+    pattern = ("\nThis triangle is {area}{units}²\n"
                "It has a perimeter of {perimeter}{units}\n"
                "This is a {aspect} triangle.\n")
 
     facts = pattern.format(**facts_dictionary)
+    return facts
+
+
+def tell_me_about_this_right_triangle(facts_dictionary):
+    """Return the diagram and the statememt for the triangle dictionary."""
+    return create_triangle_diagram(facts_dictionary)
+    + create_triangle_statement(facts_dictionary)
 
 
 def triangle_master(base,
                     height,
                     return_diagram=False,
                     return_dictionary=False):
+    """Master triangle calculation."""
+    tri_dictionary = get_triangle_facts(base, height)
+    tri_dictionary["diagram"] = create_triangle_diagram(tri_dictionary)
+    tri_dictionary["facts"] = get_triangle_facts(base, height)
     if return_diagram and return_dictionary:
-        return None
+        return tri_dictionary
     elif return_diagram:
-        return None
+        return create_triangle_diagram(tri_dictionary)
     elif return_dictionary:
-        return None
+        return tri_dictionary
     else:
         print("You're an odd one, you don't want anything!")
 
 
 def wordy_pyramid():
+    """Create a word pyramid."""
     import requests
     baseURL = "http://www.setgetgo.com/randomword/get.php?len="
     pyramid_list = []
@@ -199,11 +226,24 @@ def wordy_pyramid():
 
 
 def get_a_word_of_length_n(length):
-    pass
+    """Get a word from API of specified length."""
+    if type(length) is int and length >= 3:
+        import requests
+        baseURL = "http://www.setgetgo.com/randomword/get.php?len="
+        url = baseURL + str(length)
+        r = requests.get(url)
+        return r.text
+    else:
+        return None
 
 
 def list_of_words_with_lengths(list_of_lengths):
-    pass
+    """Return a list of words based on list of numbers(lengths)."""
+    list_of_words = []
+    for length in list_of_lengths:
+        word = get_a_word_of_length_n(length)
+        list_of_words.append(word)
+    return list_of_words
 
 
 if __name__ == "__main__":

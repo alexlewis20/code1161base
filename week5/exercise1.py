@@ -65,7 +65,13 @@ def do_bunch_of_bad_things():
 def countdown(message, start, stop, completion_message):
     """Display a countdown message."""
     countdown_list = []
-    for count in range(start, stop):
+    if start > stop:
+        step = -1
+    elif stop > start:
+        step = 1
+    else:
+        return "Thre is no countdown if start = stop"
+    for count in range(start, stop, step):
         countdown_list.append(message + str(count))
     countdown_list.append(completion_message)
     return countdown_list
@@ -207,21 +213,11 @@ def triangle_master(base,
         print("You're an odd one, you don't want anything!")
 
 
-def wordy_pyramid():
+def wordy_pyramid():  # fix wordy_pyramid
     """Create a word pyramid."""
-    import requests
-    baseURL = "http://www.setgetgo.com/randomword/get.php?len="
-    pyramid_list = []
-    for i in range(3, 21, 2):
-        url = baseURL + str(i)
-        r = requests.get(url)
-        message = r.text
-        pyramid_list.append(message)
-    for i in range(20, 3, -2):
-        url = baseURL + str(i)
-        r = requests.get(url)
-        message = r.text
-        pyramid_list.append(message)
+    lengths = [3, 5, 7, 9, 11, 13, 15, 17, 19, 20,
+               18, 16, 14, 12, 10, 8, 6, 4]
+    pyramid_list = list_of_words_with_lengths(lengths)
     return pyramid_list
 
 

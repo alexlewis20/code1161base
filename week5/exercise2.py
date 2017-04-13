@@ -6,7 +6,7 @@ Exercises and examples to illustrate recursion.
 from __future__ import division
 from __future__ import print_function
 import turtle
-import math
+# import math
 
 
 def italian_dinner(axiom="tomatoes", guard=6):
@@ -98,16 +98,25 @@ def abba(source="abba", guard=3):
         You need to change these substitutions to make it work.
         """
         if letter == "a":
-            return "a"
+            return "bba"
         elif letter == "b":
-            return "b"
+            return "aob"
         elif letter == "o":
-            return "o"
+            return "oa"
         else:
             return letter
 
     # write the rest of the function here
-    pass
+    letters = list(source)
+    result = map(apply_rules, letters)
+    abba_string = ''.join(result)
+    guard -= 1
+    if guard > 0:
+        print(abba_string)
+        return abba(abba_string, guard)
+    else:
+        print(abba_string)
+        return abba_string
 
 
 def koch(t, order, size):
@@ -173,4 +182,8 @@ if __name__ == '__main__':
     print(draw_koch(drawing_method=koch, steps_deep=2))
     print("AB:", abba())
     print("ID:", str(italian_dinner()))
+    print("ABBA 1:", abba('baaab', 2))
+    print("ABBA 2:", abba('b', 2))
+    print("ABBA 3:", abba('roof', 2))
+    print("ABBA 4:", abba('hell', 2))
     pass

@@ -20,6 +20,7 @@ print(1+1, "is smaller than",
 
 
 def usefulFunction():
+    """Print current working directory."""
     print(os.getcwd())
 
 

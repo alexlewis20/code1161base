@@ -9,7 +9,7 @@ You've got an hour.
 """
 from __future__ import division
 from __future__ import print_function
-import time
+# import time
 
 
 def greet(name="Towering Timmy"):
@@ -18,7 +18,7 @@ def greet(name="Towering Timmy"):
     return a string of "Hello" and the name argument.
     E.g. if given as "Towering Timmy" it should return "Hello Towering Timmy"
     """
-    pass
+    return("Hello %s" % name)
 
 
 def three_counter(input_list=[1, 4, 3, 5, 7, 1, 3, 2, 3, 3, 5, 3, 7]):
@@ -27,7 +27,11 @@ def three_counter(input_list=[1, 4, 3, 5, 7, 1, 3, 2, 3, 3, 5, 3, 7]):
     Return an integer.
     TIP: the test will use a different input_list, so don't just return 5
     """
-    pass
+    count = 0
+    for x in input_list:
+        if x == 3:
+            count += 1
+    return count
 
 
 def fizz_buzz():
@@ -45,7 +49,15 @@ def fizz_buzz():
     if it is. E.g. [1, 2, "Fizz", 4, "Buzz", 6, 7, ...]
     """
     fizzBuzzList = []
-    # your code here
+    for x in range(1, 101):
+        if x % 15 == 0:
+            fizzBuzzList.append("FizzBuzz")
+        elif x % 3 == 0:
+            fizzBuzzList.append("Fizz")
+        elif x % 5 == 0:
+            fizzBuzzList.append("Buzz")
+        else:
+            fizzBuzzList.append(x)
     return fizzBuzzList
 
 
@@ -56,7 +68,9 @@ def put_behind_bars(input_string="very naughty boy"):
     e.g. "very naughty boy" should return "|v|e|r|y| |n|a|u|g|h|t|y| |b|o|y|"
     TIP: make sure that you have a pipe on both ends of the string.
     """
-    pass
+    join_string = "|".join(input_string)
+    join_string = "|" + join_string + "|"
+    return(join_string)
 
 
 def pet_filter(letter="a"):
@@ -69,7 +83,11 @@ def pet_filter(letter="a"):
             "bali cattle", "gayal", "turkey", "goldfish", "rabbit", "koi",
             "canary", "society finch", "fancy mouse", "siamese fighting fish",
             "fancy rat and lab rat", "mink", "red fox", "hedgehog", "guppy"]
-    pass
+    pet_letter_list = []
+    for x in pets:
+        if letter in x:
+            pet_letter_list.append(x)
+    return(pet_letter_list)
 
 
 def best_letter_for_pets():
@@ -80,7 +98,14 @@ def best_letter_for_pets():
     """
     import string
     the_alphabet = string.lowercase
-    pass
+    letter_count = {}
+    for x in the_alphabet:
+        animal_list = pet_filter(x)
+        count = len(animal_list)
+        letter_count[x] = count
+    print(letter_count)
+    highest = max(letter_count, key=letter_count.get)
+    return(highest)
 
 
 def make_filler_text_dictionary():
@@ -98,7 +123,29 @@ def make_filler_text_dictionary():
     TIP: you'll need the requests library
     """
     import requests
-    pass
+
+    word_dict = {}
+    base_url = "http://www.setgetgo.com/randomword/get.php?len="
+
+    def get_word(word_length):
+        """Get a word from web of length."""
+        word = requests.get(base_url + str(word_length))
+        word = word.text
+        return(word)
+
+    def make_word_list(number):
+        """Make a list of three words."""
+        word_list = []
+        for x in range(3):
+            word = get_word(number)
+            word_list.append(word)
+        return word_list
+
+    for x in range(3, 8):
+        word_list = make_word_list(x)
+        word_dict[x] = word_list
+
+    return(word_dict)
 
 
 def random_filler_text(number_of_words=200):
@@ -114,7 +161,20 @@ def random_filler_text(number_of_words=200):
            capital letter and end with a full stop.
     """
     import random
-    pass
+    dictionary = make_filler_text_dictionary()
+    paragraph_list = []
+
+    for x in range(number_of_words):
+        length = random.randint(3, 7)
+        word_index = random.randint(0, 2)
+        word = dictionary[length][word_index]
+        paragraph_list.append(word)
+
+    paragraph = " ".join(paragraph_list)
+    para_len = len(paragraph)
+    first_letter = paragraph[0].upper()
+    new_paragraph = paragraph[1:para_len]
+    return("{}{}{}".format(first_letter, new_paragraph, "."))
 
 
 def fast_filler(number_of_words=200):
@@ -129,7 +189,33 @@ def fast_filler(number_of_words=200):
     into and out of the file. Be careful when you read it back in, it'll
     convert integer keys to strings.
     """
-    pass
+    import json
+    import os
+    import random
+
+    if not os.path.isfile("dict_racey.words"):
+        dictionary = make_filler_text_dictionary()
+        dump = json.dumps(dictionary)
+        word_file = open("dict_racey.words", 'w')
+        word_file.write(dump)
+        word_file.close()
+
+    dictionary_file = open("dict_racey.words", 'r')
+    dictionary = json.load(dictionary_file)
+
+    paragraph_list = []
+
+    for x in range(number_of_words):
+        length = str(random.randint(3, 7))
+        word_index = random.randint(0, 2)
+        word = dictionary[length][word_index]
+        paragraph_list.append(word)
+
+    paragraph = " ".join(paragraph_list)
+    para_len = len(paragraph)
+    first_letter = paragraph[0].upper()
+    new_paragraph = paragraph[1:para_len]
+    return("{}{}{}".format(first_letter, new_paragraph, "."))
 
 
 if __name__ == '__main__':
